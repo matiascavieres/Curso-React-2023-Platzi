@@ -1,5 +1,5 @@
-import { CompleteIcon } from './CompleteIcon'
-import { DeleteIcon } from './DeleteIcon'
+import { CompleteIcon } from '../TodoIcon/CompleteIcon'
+import { DeleteIcon } from '../TodoIcon/DeleteIcon'
 import './TodoItem.css';
 
 // Recibe el texto y el estado de completado al realizar un mapeo de defaultTodos

@@ -1,9 +1,10 @@
-import React from 'react'
-import { TodoCounter } from './TodoCounter';
-import { TodoSearch } from './TodoSearch';
-import { TodoList } from './TodoList';
-import { TodoItem } from './TodoItem';
-import { CreateTodoButton } from './CreateTodoButton';
+import React from 'react';
+import { TodoCounter } from '../TodoCounter';
+import { TodoSearch } from '../TodoSearch';
+import { TodoList } from '../TodoList/TodoList';
+import { TodoItem } from '../TodoItem/TodoItem';
+import { CreateTodoButton } from '../CreateTodoButton/index.js';
+import { useLocalStorage } from './useLocalStorage';
 
 // const defaultTodos = [
 //     {text:'Cortar cebolla', completed: true},
@@ -19,42 +20,12 @@ import { CreateTodoButton } from './CreateTodoButton';
 
   // localStorage.removeItem('TODOS_V1');
   
-
-function useLocalStorage(itemName, initalValue){
-
-
-  const localStorageItem = localStorage.getItem
-  (itemName);
-
-  
-  // Estado inicial de nuestra aplicacion
-  let parsedItem;
-
-
-  if (!localStorageItem) {
-    localStorage.setItem(itemName, JSON.
-    stringify(initalValue));
-    parsedItem = [];
-  } else {
-    parsedItem = JSON.parse(localStorageItem);
-  }
-
-  const saveItem = (newItem) => {
-    localStorage.setItem(itemName,JSON.
-    stringify(newItem));
-
-    setItem(newItem);
-  };
-
-  const [item, setItem] = React.useState();
-
-}
   
 function App() {
   
 
   // Estado de las tareas / Funcion que las actualiza  <TodoList/>
-  const [todos, setTodos] = React.useState(parsedItem);
+  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
   
   // Estado de escribir en la barra de busqueda / Funcion que la actualiza <TodoSearch/>
   const [searchValue, setSearchValue] = React.useState('');
@@ -82,7 +53,7 @@ function App() {
         (todo) => todo.text == text
       );
       newTodos[todoIndex].completed = true;
-      setTodos(newTodos);
+      saveTodos(newTodos);
     };
 
 
@@ -92,7 +63,7 @@ function App() {
         (todo) => todo.text == text
       );
       newTodos.splice(todoIndex, 1);
-      setTodos(newTodos);
+      saveTodos(newTodos);
     }
 
 
